@@ -3,7 +3,8 @@
 let appData = JSON.parse(localStorage.getItem('yehoshua_data')) || {
     daily: {},
     units: {},
-    subUnits: {}
+    subUnits: {},
+    lastPosition: {} // כאן נשמור איפה עצרת בכל ספר
 };
 
 let chartObj = null;
@@ -113,7 +114,7 @@ function renderSubUnits(subBox, parentId, bookName, chapterNum, parentEl, bookDa
         let subId = `${parentId}_${j}`;
         let subItem = document.createElement('div');
         subItem.className = 'unit-item ' + (appData.subUnits[subId] ? 'checked' : '');
-        subItem.innerText = (cat === "גמרא") ? (j === 1 ? 'א' : 'ב') : j;
+        subItem.innerText = toGem(j); // עכשיו כל משנה וכל פסוק יופיעו כאות (א, ב, ג...)
         
         subItem.onclick = (e) => {
             e.stopPropagation();
@@ -125,7 +126,10 @@ function renderSubUnits(subBox, parentId, bookName, chapterNum, parentEl, bookDa
         subGrid.appendChild(subItem);
     }
 }
-
+function updateLastPosition(cat, book, chapter, verse) {
+    appData.lastPosition[cat] = { book, chapter, verse };
+    saveToLoc();
+}
 // 5. פונקציות עזר לסימון ושמירה
 function markAllInChapter(parentId, vCount, parentEl) {
     const isCurrentlyChecked = parentEl.classList.contains('checked');
