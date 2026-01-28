@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מערכת יהושע - ניהול וצמיחה</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css"> <style>
+        /* כאן נשאר העיצוב הבסיסי ששלחתי לך קודם - בגרסה הבאה נוכל להפריד גם אותו */
+        :root { --primary: #1e3a5f; --accent: #c5a059; --success: #27ae60; --bg: #f4f7f9; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; direction: rtl; }
+        .header { background: var(--primary); color: white; padding: 20px; text-align: center; }
+        .nav { display: flex; background: white; border-bottom: 2px solid var(--accent); position: sticky; top: 0; z-index: 1000; }
+        .nav-item { padding: 15px; cursor: pointer; flex: 1; text-align: center; font-weight: bold; }
+        .nav-item.active { background: #fffaf0; color: var(--accent); border-bottom: 4px solid var(--accent); }
+        .container { max-width: 850px; margin: 20px auto; padding: 0 15px; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .card { background: white; padding: 20px; border-radius: 12px; border: 1px solid #ddd; margin-bottom: 20px; }
+        .section-header { background: var(--primary); color: white; padding: 10px; border-radius: 8px; margin: 20px 0 10px; }
+        .field { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+        .units-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 5px; }
+        .unit-item { font-size: 0.75em; padding: 8px 0; text-align: center; border: 1px solid #ddd; border-radius: 5px; cursor: pointer; }
+        .unit-item.checked { background: var(--success); color: white; }
+        .progress-bar-container { background: #ddd; border-radius: 10px; height: 10px; margin: 5px 0 15px; }
+        .progress-fill { background: var(--success); height: 100%; width: 0%; transition: width 0.3s; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>מערכת יהושע</h1>
+    <p>גרסה מפוצלת - הגנה על נתונים</p>
+</div>
+
+<div class="nav">
+    <div class="nav-item active" onclick="showTab('input-tab')">📝 דיווח יומי</div>
+    <div class="nav-item" onclick="showTab('insight-tab')">📊 משוב והתקדמות</div>
+</div>
+
+<div class="container">
+    <div id="input-tab" class="tab-content active">
+        <div class="card">
+            <div class="field"><label>תאריך:</label><input type="date" id="mainDate"></div>
+            <div id="dynamic-sections"></div> <div class="section-header">סעיף 5: לימוד יומי</div>
+            <div id="torahContainer"></div>
+            <button class="btn-save" style="width:100%; padding:20px; margin-top:20px; background:var(--success); color:white; font-weight:bold; border:none; border-radius:10px; cursor:pointer;" onclick="saveData()">שמור הכל ✅</button>
+        </div>
+    </div>
+    <div id="insight-tab" class="tab-content">
+        <div class="card">
+            <h2>📈 התקדמות תורנית</h2>
+            <div id="torahProgressBars"></div>
+        </div>
+        <div class="card">
+            <h2>📉 גרף ביצועים</h2>
+            <div style="height:250px;"><canvas id="chartJS"></canvas></div>
+        </div>
+    </div>
+</div>
+
+<script src="database.js"></script>
+
+<script type="module">
+    import { syncToCloud, loadFromCloud } from './cloud.js';
+    window.syncToCloud = syncToCloud;
+    window.loadFromCloud = loadFromCloud;
+</script>
+
+<script src="logic.js"></script>
+</body>
+</html>

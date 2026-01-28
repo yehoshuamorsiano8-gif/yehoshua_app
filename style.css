@@ -1,0 +1,92 @@
+/* --- STYLE.CSS: העיצוב של מערכת יהושע --- */
+
+:root {
+    --primary: #1e3a5f;    /* כחול כהה מלכותי */
+    --accent: #c5a059;     /* זהב יהודי */
+    --success: #27ae60;    /* ירוק הצלחה */
+    --bg: #f4f7f9;
+    --card-bg: #ffffff;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    direction: rtl;
+    color: #333;
+}
+
+/* עיצוב הריבועים (פרקים ופסוקים) */
+.units-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.unit-item {
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    cursor: pointer;
+    background: var(--card-bg);
+    transition: all 0.2s ease;
+    font-weight: bold;
+    font-size: 0.9em;
+    user-select: none;
+}
+
+.unit-item:hover {
+    border-color: var(--accent);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.unit-item.checked {
+    background-color: var(--success) !important;
+    color: white !important;
+    border-color: var(--success);
+}
+
+/* עיצוב תיבת הפסוקים */
+.sub-unit-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border: 2px solid var(--accent);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+}
+
+/* עיצוב כפתורים */
+.mark-all-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85em;
+}
+
+.mark-all-btn:hover {
+    background: #2c5282;
+}
+
+/* עיצוב סרגלי התקדמות (Progress Bars) */
+.progress-bar-container {
+    width: 100%;
+    height: 12px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    margin: 10px 0 20px 0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #e2c08d);
+    transition: width 0.5s ease-in-out;
+}
