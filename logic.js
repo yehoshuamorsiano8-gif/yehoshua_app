@@ -190,7 +190,34 @@ function updateProgressUI() {
     });
     renderChart();
 }
+function renderDetailedProgress() {
+    const detailCont = document.getElementById('detailed-books-progress');
+    if (!detailCont) return;
+    detailCont.innerHTML = '<h4>פירוט התקדמות לפי ספרים</h4>';
 
+    Object.keys(TORAH_DB).forEach(cat => {
+        Object.keys(TORAH_DB[cat]).forEach(book => {
+            const total = TORAH_DB[cat][book].ch;
+            let done = 0;
+            for (let i = 1; i <= total; i++) {
+                if (appData.units[`${cat}_${book}_${i}`]) done++;
+            }
+            const pct = Math.round((done / total) * 100) || 0;
+
+            if (done > 0) { // מציג רק ספרים שהתחלת ללמוד
+                detailCont.innerHTML += `
+                    <div class="book-progress-row">
+                        <span>${book} (${cat})</span>
+                        <div class="progress-bar-small">
+                            <div class="progress-fill-small" style="width: ${pct}%"></div>
+                        </div>
+                        <span class="pct-text">${pct}%</span>
+                    </div>
+                `;
+            }
+        });
+    });
+}
 function renderChart() {
     const canvas = document.getElementById('progressChart');
     if (!canvas || typeof Chart === 'undefined') return;
