@@ -2,6 +2,7 @@
 
 let appData = JSON.parse(localStorage.getItem('yehoshua_data')) || {};
 
+let chartObj = null;
 // אתחול אובייקטים בסיסיים אם הם לא קיימים
 if (!appData.daily) appData.daily = {};
 if (!appData.units) appData.units = {};
