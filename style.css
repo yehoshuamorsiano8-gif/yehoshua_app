@@ -1,4 +1,4 @@
-/* --- STYLE.CSS: העיצוב של מערכת יהושע --- */
+/* --- STYLE.CSS: העיצוב המלוטש של מערכת יהושע --- */
 
 :root {
     --primary: #1e3a5f;    /* כחול כהה מלכותי */
@@ -6,21 +6,42 @@
     --success: #27ae60;    /* ירוק הצלחה */
     --bg: #f4f7f9;
     --card-bg: #ffffff;
+    --text: #333;
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     background-color: var(--bg);
     margin: 0;
     direction: rtl;
-    color: #333;
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* כותרת ראשית */
+.header {
+    background: linear-gradient(135deg, var(--primary), #2c5282);
+    color: white;
+    padding: 30px 20px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* כרטיסיות (Cards) */
+.card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #e1e8ed;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 /* עיצוב הריבועים (פרקים ופסוקים) */
 .units-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 12px;
     margin-top: 15px;
 }
 
@@ -29,64 +50,86 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid #edf2f7;
+    border-radius: 10px;
     cursor: pointer;
-    background: var(--card-bg);
-    transition: all 0.2s ease;
-    font-weight: bold;
-    font-size: 0.9em;
+    background: #f8fafc;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 700;
+    font-size: 1em;
     user-select: none;
 }
 
 .unit-item:hover {
     border-color: var(--accent);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+    background: white;
+    box-shadow: 0 5px 15px rgba(197, 160, 89, 0.2);
 }
 
 .unit-item.checked {
     background-color: var(--success) !important;
     color: white !important;
     border-color: var(--success);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* עיצוב תיבת הפסוקים */
+/* עיצוב תיבת הפסוקים/משניות (כשלוחצים על פרק) */
 .sub-unit-box {
     margin-top: 20px;
     padding: 20px;
     background: #fff;
     border: 2px solid var(--accent);
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    animation: slideDown 0.3s ease-out;
 }
 
-/* עיצוב כפתורים */
-.mark-all-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 0.85em;
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-.mark-all-btn:hover {
-    background: #2c5282;
-}
-
-/* עיצוב סרגלי התקדמות (Progress Bars) */
+/* סרגלי התקדמות (Progress Bars) */
 .progress-bar-container {
     width: 100%;
-    height: 12px;
-    background: #e0e0e0;
-    border-radius: 10px;
-    margin: 10px 0 20px 0;
+    height: 14px;
+    background: #edf2f7;
+    border-radius: 20px;
+    margin: 8px 0;
     overflow: hidden;
+    border: 1px solid #e2e8f0;
 }
 
 .progress-fill {
     height: 100%;
     background: linear-gradient(90deg, var(--accent), #e2c08d);
-    transition: width 0.5s ease-in-out;
+    border-radius: 20px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* סעיפים דינמיים */
+.section-header {
+    background: var(--primary);
+    color: white;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin: 25px 0 15px;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 5px;
+    border-bottom: 1px solid #f0f4f8;
+}
+
+/* התאמה לניידים */
+@media (max-width: 600px) {
+    .units-grid {
+        grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+    }
 }
